@@ -1,50 +1,53 @@
 #класс Station
 class Station
-  attr_accessor :train, :type_trains
+  attr_accessor :trains, :type_trains
 
   def initialize(sn)
     @station_name = sn
-    @train = train
-    @list_trains = train
-    @type_trains = type_trains
+    @trains = []
   end
 
-  def get_train(train)
-    puts "Поезд #{train} прибыл на станцию"
+  def add_train(trains)
+    @trains << trains
+    puts "Поезд #{trains} прибыл на станцию"
   end
 
-  def get_train_lists
-    puts "На станции #{@list_trains} поездов"
+  def show_trains
+    puts "На станции #{@trains} поездов"
   end
 
-  def get_types_trains
-    puts "На станции поезда таких типов: #{type_trains}"
+  def show_types(type_trains)
+    @trains.each.include?("#{type_trains}")
+
   end
 
-  def out_of_trains(train)
+  def remove_train(train)
+    @trains.pop(train)
     puts "Поезд #{train} уехал со станции"
   end
 end
 
 #класс Route
 class Route
-  attr_accessor :a_point, :b_point, :z_point
+  attr_accessor :start_st, :inter_st, :end_st, :stations
 
-  def initialize(a_point, z_point)
-    @a_point = a_point
-    @z_point = z_point
+  def initialize(start_st, end_st)
+    @stations = []
+    @stations.push(start_st, end_st)
   end
 
-  def inter_point(b_point)
+  def inter_point(inter_st)
+    @stations.insert(1, inter_st)
     puts "Промежуточная станция добавлена"
   end
 
-  def del_inter_point(b_point)
+  def del_inter_point(inter_st)
+    @stations.delete_at(1)
     puts "Промежуточная станция удалена"
-  end
+    end
 
  def print_stations
-    puts "Список всех станций"
+    puts "#{@stations}"
  end
 
 end
@@ -91,6 +94,8 @@ def route_add(r_add)
   @r_add = r_add
   puts "Маршрут принят"
 end
+
+
 
 
 
