@@ -1,27 +1,28 @@
 #класс Station
 class Station
-  attr_accessor :trains, :type_trains
+  attr_accessor :type_trains
 
-  def initialize(sn)
-    @station_name = sn
+  def initialize(name)
+    @name = name
     @trains = []
   end
 
-  def add_train(trains)
-    @trains << trains
-    puts "Поезд #{trains} прибыл на станцию"
+  def add_train(train)
+    @trains << train
+    puts "Поезд #{train} прибыл на станцию"
   end
 
   def show_trains
     puts "На станции #{@trains} поездов"
   end
 
-  def show_types(type_trains)
-    @trains.each.include?("#{type_trains}")
-
+  def show_types
+    if @trains.inspect.include("c").
+  # puts "Грузовых поездов #{@trains.select{|n| n == "c"}.count('c')}"
+  # puts "Пассажирских поездов #{@trains.select{|n| n == "p"}.count('p')}"
   end
 
-  def remove_train(train)
+  def remove(train)
     @trains.pop(train)
     puts "Поезд #{train} уехал со станции"
   end
@@ -29,20 +30,20 @@ end
 
 #класс Route
 class Route
-  attr_accessor :start_st, :inter_st, :end_st, :stations
+  attr_reader :stations
 
   def initialize(start_st, end_st)
     @stations = []
-    @stations.push(start_st, end_st)
+    @stations << start_st << end_st
   end
 
   def inter_point(inter_st)
-    @stations.insert(1, inter_st)
+    @stations.insert(-2, inter_st)
     puts "Промежуточная станция добавлена"
   end
 
   def del_inter_point(inter_st)
-    @stations.delete_at(1)
+    @stations.delete(inter_st)
     puts "Промежуточная станция удалена"
     end
 
@@ -57,46 +58,45 @@ class Train
   attr_accessor :speed
   attr_writer :r_add
 
-  def initialize(tn, tt, nw)
-    @train_number = tn
-    @type_train = tt
-    @number_wagons = nw
+  def initialize (number, type, number_wagons)
+    @train = []
+    @number = number
+    @type = type
+    @number_wagons = number_wagons
     @speed = 0
+    @train << number << type << number_wagons
   end
-def up_speed(speed)
-  @speed = speed
-  puts "Скорость увеличена на #{speed}"
-end
 
-def current_speed
-  puts "Текущая скорость #{speed}"
-end
+  def up_speed(speed)
+    @speed = speed
+    puts "Скорость увеличена на #{speed}"
+  end
 
-def stop
-  @speed = 0
-  puts "Поезд остановился"
-end
+  def current_speed
+    puts "Текущая скорость #{speed}"
+  end
 
-def ret_number_wagons
-  puts "Кол-во вагонов #{@number_wagons}"
-end
+  def stop
+    @speed = 0
+    puts "Поезд остановился"
+  end
 
-def hook_add
- if @speed !=0
-   puts "Для сцепки вагона необходимо остановиться!"
- elsif
-   @number_wagons -= 1
-   puts "У поезда #{@number_wagons}"
- end
-end
+  def ret_number_wagons
+    puts "Кол-во вагонов #{@number_wagons}"
+  end
 
-def route_add(r_add)
-  @r_add = r_add
-  puts "Маршрут принят"
-end
+  def hook_add
+   if @speed !=0
+     puts "Для сцепки вагона необходимо остановиться!"
+   elsif
+     @number_wagons -= 1
+     puts "У поезда #{@number_wagons}"
+   end
+  end
 
-
-
-
+  def route_add(r_add)
+    @r_add = r_add
+    puts "Маршрут принят"
+  end
 
 end
