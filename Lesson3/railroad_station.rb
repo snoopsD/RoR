@@ -1,6 +1,6 @@
-#РєР»Р°СЃСЃ Station
+#класс Station
 class Station
-  attr_accessor :type_trains
+  attr_accessor :title, :trains
 
   def initialize(name)
     @name = name
@@ -9,26 +9,28 @@ class Station
 
   def add_train(train)
     @trains << train
-    puts "РџРѕРµР·Рґ #{train} РїСЂРёР±С‹Р» РЅР° СЃС‚Р°РЅС†РёСЋ"
+    puts "Поезд #{train} прибыл на станцию"
   end
 
   def show_trains
-    puts "РќР° СЃС‚Р°РЅС†РёРё #{@trains} РїРѕРµР·РґРѕРІ"
+    puts "На станции #{@trains} поездов"
   end
-
+  
+  def trains_by_type(type)
+    self.trains.select{ |train| train.type if train.type == type }.count
+  end
+   
   def show_types
-    if @trains.inspect.include("c").
-  # puts "Р“СЂСѓР·РѕРІС‹С… РїРѕРµР·РґРѕРІ #{@trains.select{|n| n == "c"}.count('c')}"
-  # puts "РџР°СЃСЃР°Р¶РёСЂСЃРєРёС… РїРѕРµР·РґРѕРІ #{@trains.select{|n| n == "p"}.count('p')}"
+    self.trains.select{|tr| tr == "cargo"}.count("cargo")
   end
 
   def remove(train)
     @trains.pop(train)
-    puts "РџРѕРµР·Рґ #{train} СѓРµС…Р°Р» СЃРѕ СЃС‚Р°РЅС†РёРё"
+    puts "Поезд #{train} уехал со станции"
   end
 end
 
-#РєР»Р°СЃСЃ Route
+#класс Route
 class Route
   attr_reader :stations
 
@@ -39,12 +41,12 @@ class Route
 
   def inter_point(inter_st)
     @stations.insert(-2, inter_st)
-    puts "РџСЂРѕРјРµР¶СѓС‚РѕС‡РЅР°СЏ СЃС‚Р°РЅС†РёСЏ РґРѕР±Р°РІР»РµРЅР°"
+    puts "Промежуточная станция добавлена"
   end
 
   def del_inter_point(inter_st)
     @stations.delete(inter_st)
-    puts "РџСЂРѕРјРµР¶СѓС‚РѕС‡РЅР°СЏ СЃС‚Р°РЅС†РёСЏ СѓРґР°Р»РµРЅР°"
+    puts "Промежуточная станция удалена"
     end
 
  def print_stations
@@ -53,50 +55,49 @@ class Route
 
 end
 
-#РєР»Р°СЃСЃ Train
+#класс Train
 class Train
   attr_accessor :speed
   attr_writer :r_add
-
+  attr_reader :type, :number, :number_wagons
+  
   def initialize (number, type, number_wagons)
-    @train = []
     @number = number
     @type = type
     @number_wagons = number_wagons
     @speed = 0
-    @train << number << type << number_wagons
   end
 
   def up_speed(speed)
     @speed = speed
-    puts "РЎРєРѕСЂРѕСЃС‚СЊ СѓРІРµР»РёС‡РµРЅР° РЅР° #{speed}"
+    puts "Скорость увеличена на #{speed}"
   end
 
   def current_speed
-    puts "РўРµРєСѓС‰Р°СЏ СЃРєРѕСЂРѕСЃС‚СЊ #{speed}"
+    puts "Текущая скорость #{speed}"
   end
 
   def stop
     @speed = 0
-    puts "РџРѕРµР·Рґ РѕСЃС‚Р°РЅРѕРІРёР»СЃСЏ"
+    puts "Поезд остановился"
   end
 
   def ret_number_wagons
-    puts "РљРѕР»-РІРѕ РІР°РіРѕРЅРѕРІ #{@number_wagons}"
+    puts "Кол-во вагонов #{@number_wagons}"
   end
 
   def hook_add
    if @speed !=0
-     puts "Р”Р»СЏ СЃС†РµРїРєРё РІР°РіРѕРЅР° РЅРµРѕР±С…РѕРґРёРјРѕ РѕСЃС‚Р°РЅРѕРІРёС‚СЊСЃСЏ!"
+     puts "Для сцепки вагона необходимо остановиться!"
    elsif
      @number_wagons -= 1
-     puts "РЈ РїРѕРµР·РґР° #{@number_wagons}"
+     puts "У поезда #{@number_wagons}"
    end
   end
 
   def route_add(r_add)
     @r_add = r_add
-    puts "РњР°СЂС€СЂСѓС‚ РїСЂРёРЅСЏС‚"
+    puts "Маршрут принят"
   end
 
 end
