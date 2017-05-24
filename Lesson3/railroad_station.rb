@@ -1,6 +1,6 @@
 #класс Station
 class Station
-  attr_accessor :title, :trains
+  attr_reader :trains, :name
 
   def initialize( name )
     @name = name
@@ -28,7 +28,8 @@ end
 
 #класс Route
 class Route
-  attr_accessor :stations
+  attr_accessor :stations, :name
+
 
   def initialize(start_station, end_station)
     @stations = []
@@ -53,7 +54,7 @@ end
 
 #класс Train
 class Train
-  attr_accessor :speed, :r_add
+  attr_accessor :speed, :current_station, :route
   attr_reader :type, :number, :number_wagons
 
   def initialize (number, type, number_wagons)
@@ -61,6 +62,7 @@ class Train
     @type = type
     @number_wagons = number_wagons
     @speed = 0
+    @route = []
   end
 
   def up_speed(speed)
@@ -83,26 +85,40 @@ class Train
 
   def wagon_add
     if @speed !=0
-      puts "Для сцепки/отцепки вагонов необходимо остановиться!"
+      puts "Для сцепки вагонов необходимо остановиться!"
     elsif
-      puts "Добавлен один вагон. Всего вагонов: #{ @number_wagons+1 }"
+      puts "Добавлен один вагон. Всего вагонов: #{ @number_wagons +=1 }"
     end
   end
 
   def wagon_remove
     if @speed != 0
-      puts "Для сцепки вагонов необходимо остановиться!"
+      puts "Для отцепки вагонов необходимо остановиться!"
     elsif @number_wagons == 0
       puts "Отцеплять ничего.Нет ни одного вагона."
     else
-      puts "Вагон отцеплен. Всего вагонов #{ @number_wagons-1 }"
+      puts "Вагон отцеплен. Всего вагонов #{ @number_wagons -=1 }"
     end
   end
 
-  def route_add(r_add)
-    @r_add << r_add
-
-    puts "Маршрут принят"
+  def route_add(route)
+   self.route = route.stations
+   self.current_station = self.route.first
+   puts self.current_station
+   puts "Маршрут принят"
   end
+
+  def current_station
+    print @current_station
+  end
+
+  def move_forward
+    if self.current_station != self.route.first
+      puts  self.current_station
+      puts self.route[self.current_station-1]
+      puts "Движение вперед невозможно, вы на первой станции"
+    end
+  end
+
 
 end
