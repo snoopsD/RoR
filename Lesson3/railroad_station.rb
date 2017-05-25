@@ -21,7 +21,7 @@ class Station
   end
 
   def remove(train)
-    @trains.pop(train)
+    @trains.delete(train)
     puts "Поезд #{train} покинул станцию"
   end
 end
@@ -54,7 +54,7 @@ end
 
 #класс Train
 class Train
-  attr_accessor :speed, :current_station, :route
+  attr_accessor :speed, :route
   attr_reader :type, :number, :number_wagons
 
   def initialize (number, type, number_wagons)
@@ -62,7 +62,8 @@ class Train
     @type = type
     @number_wagons = number_wagons
     @speed = 0
-    @route = []
+    @route = nil
+    @current_station = nil
   end
 
   def up_speed(speed)
@@ -79,7 +80,7 @@ class Train
     puts "Поезд остановился"
   end
 
-  def ret_number_wagons
+  def return_number_wagons
     puts "Кол-во вагонов: #{@number_wagons}"
   end
 
@@ -102,23 +103,33 @@ class Train
   end
 
   def route_add(route)
-   self.route = route.stations
-   self.current_station = self.route.first
-   puts self.current_station
-   puts "Маршрут принят"
+    self.route = route
+    @current_station = self.route.stations[0]
   end
 
   def current_station
-    print @current_station
+    @current_station
   end
 
-  def move_forward
-    if self.current_station != self.route.first
-      puts  self.current_station
-      puts self.route[self.current_station-1]
-      puts "Движение вперед невозможно, вы на первой станции"
+  def move_next
+    if @current_station == self.route.stations.last
+      puts "Это конечная станция. Вперед двигаться нельзя!"
+    elsif
+      @current_station = self.route.stations.index(@current_station)+1
+      @current_station = self.route.stations[@current_station]
     end
   end
+
+  def move_back
+    if @current_station == self.route.stations[0]
+      puts "Это начальная станция. Назад двигаться нельзя!"
+    else
+      @current_station = self.route.stations.index(@current_station)-1
+      @current_station = self.route.stations[@current_station]
+    end
+  end
+
+
 
 
 end
