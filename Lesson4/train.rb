@@ -2,7 +2,7 @@
 class Train
   attr_accessor :speed,:route,:wagons,:type,:number
 
-  def initialize(type)
+  def initialize(number)
     @speed = 0
     @wagons = []
     @type = type
@@ -12,7 +12,9 @@ class Train
   def wagon_add(wagon)
     if @speed !=0
       puts "Для сцепки вагонов необходимо остановиться!"
-    elsif
+    elsif self.type != wagon.type
+      puts "Разные типы вагонов!"
+    else
       self.wagons << wagon
     end
   end
