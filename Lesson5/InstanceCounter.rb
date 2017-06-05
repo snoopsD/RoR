@@ -6,22 +6,20 @@ module InstanceCounter
 
   module ClassMethods
 
-    def instances
-      @instance
+    def instance
+      @instances
     end
 
-    def add_instances
-      @instance ||= 0
-      @instance += 1      
+    def add_instance
+      @instances ||= 0
+      @instances += 1
     end
   end
 
   module InstanceMethods
 
-    private
-
     def register_instance
-      self.class.send :add_instances
+      self.class.add_instance
     end
   end
 end
