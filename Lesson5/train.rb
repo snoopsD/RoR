@@ -6,8 +6,7 @@ class Train
   include InstanceCounter
 
   attr_accessor :speed,:route,:wagons,:type,:number
-  @@trains = []
-  @@instances = 0
+  @@trains = {}
 
   def self.find(number)
     @@trains[number]
