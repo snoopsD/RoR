@@ -10,8 +10,7 @@ class Train
   include InstanceCounter
   include Valid
 
-  #TRAIN_REGEXP = /^[a-z0-9]{3}-?[a-z0-9]{2}$/
-  TRAIN_REGEXP = /\d/
+  TRAIN_REGEXP = /^[a-z0-9]{3}-?[a-z0-9]{2}$/
   attr_accessor :speed,:route,:wagons,:type,:number
   @@trains = {}
 

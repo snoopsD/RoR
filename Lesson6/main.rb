@@ -71,7 +71,7 @@ private
 
   def train_create
     print "Введите номер поезда: "
-    train_number = gets.chomp.to_i
+    train_number = gets.chomp
     puts "Введите тип поезда: "
     puts "1. Пассажирский"
     puts "2. Грузовой"
