@@ -78,8 +78,10 @@ private
     type_train = gets.chomp.to_i
     if type_train == 1
       trains << PassengerTrain.new(train_number)
+      puts "Пассажирский поезд с №#{train_number} создан"
     elsif  type_train == 2
       trains << CargoTrain.new(train_number)
+      puts "Грузовой поезд с №#{train_number} создан"
     end
   end
 
