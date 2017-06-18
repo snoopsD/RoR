@@ -16,8 +16,7 @@ module Validate
     def validate!
       self.class.types.each do |variable|
         value = instance_variable_get("@#{variable[:name]}")
-        options = "#{variable[:args]}"
-        send variable[:type_method], variable[:name], value, options
+        send variable[:type_method], variable[:name], value, variable[:args]
       end
     end
 
@@ -36,7 +35,7 @@ module Validate
     end
 
     def type(name, type, type_class)
-      raise "Class Error" unless name.kind_of?(type)
+      raise "Class Error" unless type.kind_of?(type_class[0])
     end
   end
 end
