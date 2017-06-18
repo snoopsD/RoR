@@ -1,9 +1,11 @@
 require_relative 'validation'
-require_relative 'station'
+
 # class Route
 class Route
   include Validate
-  attr_accessor :stations
+  attr_accessor :stations, :start_station
+
+  validate :start_station, :type, Station
 
   def initialize(start_station, end_station)
     @start_station = start_station
