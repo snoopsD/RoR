@@ -35,8 +35,8 @@ module Validate
       raise "Format error" unless range.to_s.match(range)
     end
 
-    def type (name, type,type_class) 
-      raise "Class Error" unless kind_of?(type_class)
+    def type(name, type, type_class)
+      raise "Class Error" unless name.kind_of?(type)
     end
   end
 end
