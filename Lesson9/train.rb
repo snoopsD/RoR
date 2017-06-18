@@ -6,10 +6,11 @@ require_relative 'validation'
 class Train
   include Producer
   include InstanceCounter
-  include Valid
+  include Validate
 
   TRAIN_REGEXP = /^[a-z0-9]{3}-?[a-z0-9]{2}$/
   attr_accessor :speed, :route, :wagons, :type, :number
+  attr_reader :current_station
   @@trains = {}
 
   def self.find(number)
@@ -56,12 +57,10 @@ class Train
     @current_station = self.route.stations[0]
   end
 
-  attr_reader :current_station
-
   def move_next
     if @current_station == route.stations.last
       puts 'Это конечная станция. Вперед двигаться нельзя!'
-    elsif next_station == route.stations.index(@current_station) + 1
+    elsif next_station = route.stations.index(@current_station) + 1
       @current_station = route.stations[next_station]
     end
   end

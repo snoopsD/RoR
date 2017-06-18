@@ -2,9 +2,11 @@ require_relative 'validation.rb'
 
 # class Station
 class Station
-  include Valid
+  include Validate
   attr_reader :trains, :name
   @@amount_stations = []
+
+  validate :name, :presence  
 
   def self.all
     @@amount_stations
@@ -37,9 +39,9 @@ class Station
     @trains.each_with_index { |train, id| yield(train, id) }
   end
 
-  def validate!
-    raise 'Название станции не может быть пустым!' if name.nil?
-    raise 'Минимум 3, максимум 12' if (name.length < 3) || name.length > 12
-    true
-  end
+#  def validate!
+#    raise 'Название станции не может быть пустым!' if name.nil?
+#    raise 'Минимум 3, максимум 12' if (name.length < 3) || name.length > 12
+#    true
+#  end
 end

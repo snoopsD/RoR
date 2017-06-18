@@ -12,7 +12,7 @@ require_relative 'accessors'
 
 # class Main
 class Main
-  include Valid
+  include Validate
   attr_reader :stations, :routes, :trains
 
   def initialize
@@ -69,11 +69,7 @@ class Main
   def station_create
     print 'Введите имя станции: '
     station_name = gets.chomp
-    if station_name == ''
-      puts 'Имя станции не может быть пустым'
-    else
-      stations << Station.new(station_name)
-    end
+    stations << Station.new(station_name)    
   end
 
   def train_create

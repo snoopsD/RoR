@@ -1,8 +1,8 @@
-require_relative 'validation.rb'
-
+require_relative 'validation'
+require_relative 'station'
 # class Route
 class Route
-  include Valid
+  include Validate
   attr_accessor :stations
 
   def initialize(start_station, end_station)
@@ -25,10 +25,5 @@ class Route
 
   def print_stations
     puts @stations.to_s
-  end
-
-  def validate!
-    raise 'Конечная станция не может быть начальной!' if @start_station == @end_station
-    true
   end
 end
